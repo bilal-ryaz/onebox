@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OneBox</title>
+  <!-- Font Awesome for professional icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#0e1624;--card:#182235;--muted:#a5b4c7;--accent:#06b6d4;--highlight:#1e293b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:#f1f5f9;
+      display:flex;
+      min-height:100vh;
+    }
+    /* Sidebar */
+    .sidebar{
+      width:240px;
+      background:#121a2b;
+      padding:20px 0;
+      display:flex;
+      flex-direction:column;
+      box-shadow:2px 0 10px rgba(0,0,0,0.5);
+    }
+    .sidebar i {
+      font-size: 18px;      /* make all icons same size */
+      width: 24px;          /* reserve space so alignment is equal */
+      text-align: center;   /* center the icon in that space */
+      margin-right: 10px;   /* spacing between icon and text */
+    } 
+
+    .sidebar h2{
+      font-size:18px;
+      font-weight:700;
+      color:var(--accent);
+      text-align:center;
+      margin-bottom:20px;
+    }
+    .btn.whatsapp {
+      background: #25D366;   /* WhatsApp green */
+      color: #fff;
+    }
+.btn.whatsapp:hover {
+  background: #1ebe5d;
+}
+
+    .nav{
+      display:flex;
+      flex-direction:column;
+    }
+    .nav button{
+      background:none;
+      border:none;
+      color:#f1f5f9;
+      text-align:left;
+      padding:12px 20px;
+      font-size:15px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      transition:background .2s;
+    }
+    .nav button:hover,
+    .nav button.active{
+      background:var(--highlight);
+      color:var(--accent);
+    }
+    .nav i{width:18px;text-align:center;}
+    /* Workspace */
+    .workspace{
+      flex:1;
+      padding:30px;
+      overflow-y:auto;
+    }
+    h1{font-size:24px;margin-bottom:8px}
+    p.lead{margin-bottom:18px;color:var(--muted)}
+    .card{
+      background:var(--card);
+      padding:20px;
+      border-radius:14px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.45);
+      margin-bottom:20px;
+    }
+    label{display:block;font-size:14px;margin-bottom:6px;color:var(--muted)}
+    input[type=text], textarea, select{
+      width:100%;padding:12px;border-radius:10px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:var(--highlight);
+      color:inherit;font-size:15px;
+      margin-bottom:12px;
+    }
+    input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .col{flex:1;min-width:120px}
+    .btn{
+      background:var(--accent);
+      color:#0e1624;
+      border:none;
+      padding:10px 16px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:background .2s;
+      margin-right:8px;
+      margin-bottom:8px;
+    }
+    .btn:hover{background:#0891b2}
+    .btn.secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.15);
+      color:var(--muted);
+    }
+    .btn.secondary:hover{color:#fff;border-color:var(--accent)}
+    .out{
+      background:var(--highlight);
+      padding:12px;
+      border-radius:10px;
+      font-family:monospace;
+      word-break:break-all;
+      margin-bottom:12px;
+      font-size:14px;
+    }
+    .footer{font-size:13px;color:var(--muted);margin-top:12px}
+    .hidden{display:none}
+    .welcome{
+      text-align:center;
+      padding:80px 20px;
+    }
+    .welcome h1{font-size:28px;margin-bottom:16px}
+    .welcome p{color:var(--muted);font-size:16px}
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2><i class="fa-solid fa-bolt"></i> Master Tool</h2>
+    <div class="nav">
+      <button id="nav-welcome" class="active"><i class="fa-solid fa-house"></i> Home</button>
+      <button id="nav-iptv"><i class="fa-solid fa-tv"></i> IPTV Generator</button>
+      <button id="nav-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp Quick</button>
+    </div>
+  </aside>
+
+  <!-- Workspace -->
+  <main class="workspace">
+    <!-- Welcome screen -->
+    <div id="welcome" class="welcome">
+      <h1>⚡ Welcome to Master Tool</h1>
+      <p>Select a tool from the left sidebar to get started.</p>
+    </div>
+
+    <!-- IPTV Tool -->
+    <div id="iptv" class="hidden">
+      <div class="card">
+        <h1>IPTV Link Generator</h1>
+        <p class="lead">Easily generate your M3U & EPG links from server details, copy, or download them.</p>
+        <label for="server">Server address</label>
+        <input id="server" type="text" placeholder="http://example.com:80" />
+        <div class="row">
+          <div class="col">
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Username" />
+          </div>
+          <div class="col">
+            <label for="password">Password</label>
+            <input id="password" type="text" placeholder="Password" />
+          </div>
+        </div>
+        <button id="genBtn" class="btn">Generate</button>
+        <button id="downloadM3U" class="btn secondary">Download .m3u</button>
+        <button id="copyAll" class="btn secondary">Copy All</button>
+        <label>M3U URL</label>
+        <div id="m3uOut" class="out">—</div>
+        <button id="copyM3U" class="btn secondary">Copy</button>
+        <button id="openM3U" class="btn secondary">Open</button>
+        <label>EPG URL</label>
+        <div id="epgOut" class="out">—</div>
+        <button id="copyEPG" class="btn secondary">Copy</button>
+        <button id="openEPG" class="btn secondary">Open</button>
+        <div class="footer">Supports Xtream-style IPTV servers.</div>
+      </div>
+    </div>
+
+    <!-- WhatsApp Tool -->
+    <div id="whatsapp" class="hidden">
+      <div class="card">
+        <h1>WhatsApp Quick Message</h1>
+        <p class="lead">Send WhatsApp messages or calls without saving numbers.</p>
+        <label>Country code</label>
+        <div class="row">
+          <select id="countryCode">
+            <option value="+1">+1 (USA/Canada)</option>
+            <option value="+44">+44 (UK)</option>
+            <option value="+92">+92 (Pakistan)</option>
+            <option value="+91">+91 (India)</option>
+            <option value="+61">+61 (Australia)</option>
+            <option value="+49">+49 (Germany)</option>
+            <option value="+33">+33 (France)</option>
+            <option value="custom">Custom…</option>
+          </select>
+          <input id="ccManual" type="text" placeholder="+92" style="display:none" />
+        </div>
+        <label>Phone number</label>
+        <input id="phone" type="text" placeholder="3012345678" />
+        <label>Prefilled message (optional)</label>
+        <textarea id="message" rows="3" placeholder="Type your message"></textarea>
+        <button id="genWhats" class="btn">Generate Link</button>
+        <button id="openWhats" class="btn whatsapp">Open WhatsApp</button>
+        <button id="copyWhats" class="btn secondary">Copy</button>
+        <label>Result</label>
+        <div id="whatsOut" class="out">—</div>
+        <div class="footer">Uses <code>wa.me</code> links, works on mobile & desktop.</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const $ = id => document.getElementById(id)
+    const sanitizeServer = s => s.trim().replace(/\/+$/,'')
+    function makeM3U(server,u,p){return `${server}/get.php?username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}&type=m3u`}
+    function makeEPG(server,u,p){return `${server}/xmltv.php?username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`}
+
+    function showLinks(){
+      const s = sanitizeServer($('server').value), u=$('username').value.trim(), p=$('password').value.trim()
+      if(!s||!u){alert('Enter server and username');return}
+      $('m3uOut').textContent = makeM3U(s,u,p)
+      $('epgOut').textContent = makeEPG(s,u,p)
+      $('m3uOut').dataset.url=$('m3uOut').textContent
+      $('epgOut').dataset.url=$('epgOut').textContent
+    }
+    async function copyText(t){try{await navigator.clipboard.writeText(t)}catch{}}
+    $('genBtn').onclick = showLinks
+    $('copyM3U').onclick=()=>copyText($('m3uOut').dataset.url||'')
+    $('copyEPG').onclick=()=>copyText($('epgOut').dataset.url||'')
+    $('openM3U').onclick=()=>window.open($('m3uOut').dataset.url,'_blank')
+    $('openEPG').onclick=()=>window.open($('epgOut').dataset.url,'_blank')
+    $('copyAll').onclick=()=>copyText(`M3U: ${$('m3uOut').dataset.url}\nEPG: ${$('epgOut').dataset.url}`)
+    $('downloadM3U').onclick=()=>{
+      const c = `#EXTM3U\n#EXTINF:-1,Playlist\n${$('m3uOut').dataset.url}\n`
+      const blob = new Blob([c],{type:'audio/x-mpegurl'})
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='playlist.m3u';a.click()
+    }
+
+    $('countryCode').onchange=e=>$('ccManual').style.display=e.target.value==='custom'?'block':'none'
+    function buildWhats(){
+      const cc= $('countryCode').value==='custom'?$('ccManual').value.trim():$('countryCode').value
+      const phone=$('phone').value.trim().replace(/\D/g,'')
+      if(!cc||!phone){alert('Enter country code & phone');return null}
+      return `https://wa.me/${cc.replace(/\D/g,'')}${phone}?text=${encodeURIComponent($('message').value||'')}`
+    }
+    $('genWhats').onclick=()=>{$('whatsOut').textContent=buildWhats()||'—';$('whatsOut').dataset.url=$('whatsOut').textContent}
+    $('openWhats').onclick=()=>{const u=$('whatsOut').dataset.url||buildWhats();if(u)window.open(u,'_blank')}
+    $('copyWhats').onclick=()=>copyText($('whatsOut').dataset.url||buildWhats()||'')
+
+    // Navigation
+    function showSection(id){
+      document.querySelectorAll('main > div').forEach(el=>el.classList.add('hidden'))
+      $(id).classList.remove('hidden')
+      document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'))
+      document.getElementById('nav-'+id).classList.add('active')
+    }
+    $('nav-welcome').onclick=()=>showSection('welcome')
+    $('nav-iptv').onclick=()=>showSection('iptv')
+    $('nav-whatsapp').onclick=()=>showSection('whatsapp')
+  </script>
+</body>
+</html>
