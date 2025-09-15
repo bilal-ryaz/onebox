@@ -17,8 +17,6 @@
       color:#f1f5f9;
       display:flex;
       min-height:100vh;
-      max-width:100%;
-      overflow-x:hidden; /* ✅ Prevent horizontal scroll */
     }
     /* Sidebar */
     .sidebar{
@@ -28,8 +26,8 @@
       display:flex;
       flex-direction:column;
       box-shadow:2px 0 10px rgba(0,0,0,0.5);
-      transition:transform 0.3s ease-in-out;
-      flex-shrink:0; /* ✅ don’t force workspace to shrink */
+      transition: transform 0.3s ease-in-out;
+      flex-shrink:0;
     }
     .sidebar i {
       font-size:18px;
@@ -43,8 +41,6 @@
       color:var(--accent);
       text-align:center;
       margin-bottom:20px;
-      padding:0 10px;
-      word-break:break-word;
     }
     .nav{
       display:flex;
@@ -62,7 +58,6 @@
       gap:10px;
       cursor:pointer;
       transition:background .2s;
-      width:100%;
     }
     .nav button:hover,
     .nav button.active{
@@ -75,7 +70,6 @@
       flex:1;
       padding:30px;
       overflow-y:auto;
-      min-width:0; /* ✅ fixes flex overflow on mobile */
     }
     h1{font-size:24px;margin-bottom:8px}
     p.lead{margin-bottom:18px;color:var(--muted)}
@@ -88,36 +82,47 @@
     }
     label{display:block;font-size:14px;margin-bottom:6px;color:var(--muted)}
     input[type=text], textarea, select{
-      width:100%;padding:12px;border-radius:10px;
-      border:1px solid rgba(255,255,255,0.08);
-      background:var(--highlight);
+      width:100%;padding:14px 12px;border-radius:10px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:#10192d;
       color:inherit;font-size:15px;
-      margin-bottom:12px;
+      margin-bottom:16px;
+      transition:border .2s ease, background .2s ease;
     }
-    input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+    input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);background:#132033}
     .row{display:flex;gap:12px;flex-wrap:wrap}
     .col{flex:1;min-width:120px}
     .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
       background:var(--accent);
       color:#0e1624;
       border:none;
-      padding:10px 16px;
-      border-radius:10px;
+      padding:12px 18px;
+      border-radius:12px;
       cursor:pointer;
       font-weight:600;
-      transition:background .2s;
-      margin-right:8px;
-      margin-bottom:8px;
+      font-size:15px;
+      transition:all .25s ease;
+      margin:6px 4px;
+      min-width:150px;
     }
-    .btn:hover{background:#0891b2}
+    .btn:hover{background:#0ea5b7;transform:translateY(-2px)}
     .btn.secondary{
       background:transparent;
-      border:1px solid rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.2);
       color:var(--muted);
     }
-    .btn.secondary:hover{color:#fff;border-color:var(--accent)}
-    .btn.whatsapp {background:#25D366;color:#fff;}
-    .btn.whatsapp:hover {background:#1ebe5d;}
+    .btn.secondary:hover{color:#fff;border-color:var(--accent);background:rgba(255,255,255,0.05)}
+    .btn.whatsapp{
+      background:linear-gradient(135deg,#25D366,#20b955);
+      color:#fff;
+      font-weight:700;
+    }
+    .btn.whatsapp i{font-size:18px;}
+    .btn.whatsapp:hover{background:linear-gradient(135deg,#20b955,#1da44c)}
 
     .out{
       background:var(--highlight);
@@ -143,16 +148,23 @@
       .sidebar{
         width:100%;
         flex-direction:row;
-        justify-content:space-around;
+        align-items:center;
+        justify-content:center;
         padding:10px;
       }
       .sidebar h2{display:none;}
-      .nav{flex-direction:row;gap:10px;width:100%;}
+      .nav{
+        flex-direction:row;
+        flex-wrap:wrap;
+        justify-content:center;
+        width:100%;
+      }
       .nav button{
         flex:1;
         justify-content:center;
         padding:10px;
         font-size:14px;
+        min-width:auto;
       }
       .workspace{padding:20px;}
     }
@@ -162,7 +174,6 @@
       .row{flex-direction:column}
       .col{min-width:100%}
       .btn{width:100%;text-align:center}
-      .out{word-break:break-word;} /* ✅ wrap long urls */
     }
   </style>
 </head>
